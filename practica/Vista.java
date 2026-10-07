@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author Estudiantes
  */
 public class Vista {
-    private Numeros gestor;
+    private Numeros digitadornumeros;
     private Scanner leer;
     
     /**
@@ -22,9 +22,6 @@ public class Vista {
      * Método principal que muestra el menú y gestiona las opciones
      */
     public void mostrarMenu() {
-        System.out.println("\n╔════════════════════════════════════════╗");
-        System.out.println("║   Bienvenido al Gestor de Números     ║");
-        System.out.println("╚════════════════════════════════════════╝");
         
         int opcion = 0;
         boolean continuar = true;
@@ -55,15 +52,11 @@ public class Vista {
                     case 7:
                         calcularSumatoria();
                         break;
-                    case 8:
-                        continuar = salir();
-                        break;
                     default:
-                        System.out.println("❌ Opción no válida. Intenta de nuevo.");
+                        System.out.println(" Opción no válida. Intenta de nuevo.");
                 }
             } catch (Exception e) {
-                System.out.println("❌ Error: " + e.getMessage());
-                leer.nextLine(); // Limpiar buffer
+                System.out.println(" Error: " + e.getMessage());
             }
         }
     }
@@ -72,19 +65,14 @@ public class Vista {
      * Muestra las opciones del menú y retorna la opción seleccionada
      */
     private int mostrarOpciones() {
-        System.out.println("\n┌────────────────────────────────────────┐");
-        System.out.println("│          MENÚ PRINCIPAL               │");
-        System.out.println("├────────────────────────────────────────┤");
-        System.out.println("│ 1. Ingresar 10 números por teclado    │");
-        System.out.println("│ 2. Ingresar 10 números aleatorios     │");
-        System.out.println("│ 3. Modificar número según índice      │");
-        System.out.println("│ 4. Eliminar un número                 │");
-        System.out.println("│ 5. Mostrar números                    │");
-        System.out.println("│ 6. Añadir más números                 │");
-        System.out.println("│ 7. Calcular sumatoria de números      │");
-        System.out.println("│ 8. Salir                              │");
-        System.out.println("└────────────────────────────────────────┘");
-        System.out.print("Selecciona una opción (1-8): ");
+        System.out.println(" 1. Ingresar 10 números por teclado");
+        System.out.println("2. Ingresar 10 números aleatorios");
+        System.out.println("3. Modificar número según índice");
+        System.out.println("4. Eliminar un número");
+        System.out.println("5. Mostrar números");
+        System.out.println("6. Añadir más números");
+        System.out.println("7. Calcular sumatoria de números");
+        System.out.print("Selecciona una opción (1-7): ");
         
         int opcion = leer.nextInt();
         return opcion;
@@ -94,12 +82,12 @@ public class Vista {
      * Opción 1: Ingresar 10 números por teclado
      */
     private void ingresarNumerosPorTeclado() {
-        System.out.println("\n✏️  Ingresando 10 números por teclado...");
+        System.out.println("\n  Ingresando 10 números por teclado...");
         try {
-            gestor.agregar10numeros();
-            System.out.println("✅ Números ingresados correctamente.");
+            digitadornumeros.agregar10numeros();
+            System.out.println("\nNúmeros ingresados correctamente.");
         } catch (Exception e) {
-            System.out.println("❌ Error al ingresar números: " + e.getMessage());
+            System.out.println(" Error al ingresar números: " + e.getMessage());
         }
     }
     
@@ -107,13 +95,12 @@ public class Vista {
      * Opción 2: Ingresar 10 números aleatorios
      */
     private void ingresarNumerosAleatorios() {
-        System.out.println("\n🎲 Generando 10 números aleatorios...");
+        System.out.println("\n Generando 10 números aleatorios...");
         try {
-            gestor.agregar10numerosrandom();
-            System.out.println("✅ Números aleatorios generados correctamente.");
-            mostrarNumeros();
+            digitadornumeros.agregar10numerosrandom();
+            System.out.println("\nNúmeros aleatorios generados correctamente.");
         } catch (Exception e) {
-            System.out.println("❌ Error al generar números: " + e.getMessage());
+            System.out.println("Error al generar números: " + e.getMessage());
         }
     }
     
@@ -121,26 +108,26 @@ public class Vista {
      * Opción 3: Modificar número según índice
      */
     private void modificarNumeroPorIndice() {
-        System.out.println("\n✏️  Modificar número según índice");
+        System.out.println("\n  Modificar número según índice");
         try {
-            System.out.print("Ingresa el índice (0-9): ");
+            System.out.print("Ingresa el índice (1-10): ");
             int indice = leer.nextInt();
             
-            if (indice < 0 || indice > 9) {
-                System.out.println("❌ Índice inválido. Debe estar entre 0 y 9.");
+            if (indice < 1 || indice > 10) {
+                System.out.println(" Índice inválido. Debe estar entre 1 y 10.");
                 return;
             }
             
             System.out.print("Ingresa el nuevo número: ");
             double nuevoNumero = leer.nextDouble();
+            digitadornumeros.modificarNumeroPorIndice(indice, nuevoNumero);
+            System.out.println(" Número modificado correctamente.");
             
-            gestor.modificarNumeroPorIndice(indice, nuevoNumero);
-            System.out.println("✅ Número modificado correctamente.");
         } catch (java.util.InputMismatchException e) {
-            System.out.println("❌ Error: Debes ingresar un número válido.");
+            System.out.println(" Error: Debes ingresar un número válido.");
             leer.nextLine();
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
     }
     
@@ -148,23 +135,21 @@ public class Vista {
      * Opción 4: Eliminar un número
      */
     private void eliminarNumero() {
-        System.out.println("\n🗑️  Eliminar un número");
+        System.out.println("\nEliminar un número");
         try {
-            System.out.print("Ingresa el índice del número a eliminar (0-9): ");
+            System.out.print("Ingresa el índice del número a eliminar (1-10): ");
             int indice = leer.nextInt();
             
-            if (indice < 0 || indice > 9) {
-                System.out.println("❌ Índice inválido. Debe estar entre 0 y 9.");
+            if (indice < 1 || indice > 10) {
+                System.out.println(" Índice inválido. Debe estar entre 1 y 10.");
                 return;
             }
-            
-            gestor.eliminarNumero(indice);
-            System.out.println("✅ Número eliminado correctamente (establecido a 0).");
+            digitadornumeros.eliminarNumero(indice);
         } catch (java.util.InputMismatchException e) {
-            System.out.println("❌ Error: Debes ingresar un número válido.");
+            System.out.println("Error: Debes ingresar un número válido.");
             leer.nextLine();
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
     
@@ -172,11 +157,11 @@ public class Vista {
      * Opción 5: Mostrar números
      */
     private void mostrarNumeros() {
-        System.out.println("\n📊 Números actuales:");
+        System.out.println("\n Números actuales:");
         try {
-            new MostrarNumeros(gestor.numeros);
+            new MostrarNumeros(digitadornumeros.numeros);
         } catch (Exception e) {
-            System.out.println("❌ Error al mostrar números: " + e.getMessage());
+            System.out.println(" Error al mostrar números: " + e.getMessage());
         }
     }
     
@@ -190,17 +175,17 @@ public class Vista {
             int cantidad = leer.nextInt();
             
             if (cantidad <= 0) {
-                System.out.println("❌ Debes ingresar una cantidad mayor a 0.");
+                System.out.println(" Debes ingresar una cantidad mayor a 0.");
                 return;
             }
             
-            gestor.anadirMasNumeros(cantidad);
-            System.out.println("✅ Números agregados correctamente.");
+            digitadornumeros.anadirMasNumeros(cantidad);
+            System.out.println(" Números agregados correctamente.");
         } catch (java.util.InputMismatchException e) {
-            System.out.println("❌ Error: Debes ingresar un número válido.");
+            System.out.println(" Error: Debes ingresar un número válido.");
             leer.nextLine();
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
     }
     
@@ -208,25 +193,12 @@ public class Vista {
      * Opción 7: Calcular sumatoria
      */
     private void calcularSumatoria() {
-        System.out.println("\n🧮 Calculando sumatoria...");
         try {
-            double sumatoria = gestor.calcularSumatoria();
-            System.out.println("✅ Sumatoria de los números: " + sumatoria);
+            double sumatoria = digitadornumeros.calcularSumatoria();
+            System.out.println(" \nSumatoria de los números: " + sumatoria);
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
     }
     
-    /**
-     * Opción 8: Salir del programa
-     */
-    private boolean salir() {
-        System.out.println("\n👋 ¿Estás seguro de que deseas salir? (s/n)");
-        String respuesta = leer.next().toLowerCase();
-        if (respuesta.equals("s")) {
-            System.out.println("✅ Gracias por usar el programa. ¡Adiós!");
-            return false;
-        }
-        return true;
-    }
 }
