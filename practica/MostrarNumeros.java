@@ -9,8 +9,13 @@ import java.util.Arrays;
 public class MostrarNumeros {
     
     /** Muestra los numeros de un arreglo de numeros
-     * @param numeros */
+     * @param numeros 
+     */
     public MostrarNumeros(double numeros[]){
-        System.out.println("\n Los numeros digitados son: "+ Arrays.toString(numeros));
+        try {
+            System.out.println("\n Los numeros digitados son: "+ Arrays.toString(numeros));
+            
+        }catch (Exception e){
+            System.out.println("Error al mostrar números: " + e.getMessage());
     }
 }
